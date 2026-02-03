@@ -1,5 +1,10 @@
 import express from "express";
+import { registerSwagger } from "./registers/swagger.register.js";
 
-const app = express();
+export const createApp = () => {
+  const app = express();
 
-export default app;
+  registerSwagger(app);
+
+  return app;
+};
