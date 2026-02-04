@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/server.ts"
+    "dev": "tsx watch src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,10 +12,15 @@
   "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^8.4.0",
+    "@types/cors": "^2.8.19",
+    "@types/morgan": "^1.9.10",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "morgan": "^1.10.1",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.9.3",
+    "winston": "^3.19.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
