@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "keywords": [],
   "author": "",
@@ -12,20 +14,29 @@
   "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^8.4.0",
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
     "@types/cors": "^2.8.19",
     "@types/morgan": "^1.9.10",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "morgan": "^1.10.1",
+    "pg": "^8.18.0",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.9.3",
     "winston": "^3.19.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
+    "@types/node": "^25.2.0",
+    "@types/pg": "^8.16.0",
     "@types/swagger-ui-express": "^4.1.8",
+    "prettier": "^3.8.1",
+    "prisma": "^7.3.0",
     "tsx": "^4.21.0"
   },
   "type": "module"

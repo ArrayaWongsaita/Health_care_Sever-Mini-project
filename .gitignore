@@ -1,3 +1,8 @@
 /node_modules
 codebook.toml
 /logs
+.DS_Store
+.vscode
+.env
+
+/src/generated/prisma
