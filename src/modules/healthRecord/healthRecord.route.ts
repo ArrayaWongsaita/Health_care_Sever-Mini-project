@@ -12,12 +12,10 @@ import { ROUTES } from '../../shared/constants/routes.constant.js';
 
 const healthRecordRoute = Router();
 
-// All routes require authentication
-healthRecordRoute.use(authenticate);
-
 // GET /health-records - Get all health records for current user
 healthRecordRoute.get(
   ROUTES.HEALTH_RECORD.LIST.express,
+  authenticate,
   validateQuery(paginationQueryDto),
   healthRecordController.getAll,
 );
@@ -25,6 +23,7 @@ healthRecordRoute.get(
 // GET /health-records/:id - Get specific health record
 healthRecordRoute.get(
   ROUTES.HEALTH_RECORD.GET_BY_ID.express,
+  authenticate,
   validateParams(idParamsSchema),
   healthRecordController.getById,
 );
@@ -32,6 +31,7 @@ healthRecordRoute.get(
 // POST /health-records - Create new health record
 healthRecordRoute.post(
   ROUTES.HEALTH_RECORD.CREATE.express,
+  authenticate,
   validateBody(createHealthRecordRequestDto),
   healthRecordController.create,
 );
@@ -40,6 +40,7 @@ healthRecordRoute.post(
 healthRecordRoute.patch(
   ROUTES.HEALTH_RECORD.UPDATE.express,
   validateParams(idParamsSchema),
+  authenticate,
   validateBody(updateHealthRecordRequestDto),
   healthRecordController.update,
 );
@@ -47,6 +48,7 @@ healthRecordRoute.patch(
 // DELETE /health-records/:id - Delete health record
 healthRecordRoute.delete(
   ROUTES.HEALTH_RECORD.DELETE.express,
+  authenticate,
   validateParams(idParamsSchema),
   healthRecordController.delete,
 );

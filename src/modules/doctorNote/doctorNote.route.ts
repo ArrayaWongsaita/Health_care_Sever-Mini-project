@@ -13,16 +13,16 @@ import { authorizeRoles } from '../../shared/middlewares/role.middleware.js';
 
 const doctorNoteRoute = Router();
 
-doctorNoteRoute.use(authenticate);
-
 doctorNoteRoute.get(
   ROUTES.DOCTOR_NOTE.LIST.express,
+  authenticate,
   validateQuery(paginationQueryDto),
   doctorNoteController.getAll,
 );
 
 doctorNoteRoute.get(
   ROUTES.DOCTOR_NOTE.GET_BY_ID.express,
+  authenticate,
   validateParams(idParamsSchema),
   doctorNoteController.getById,
 );
@@ -30,12 +30,14 @@ doctorNoteRoute.get(
 doctorNoteRoute.post(
   ROUTES.DOCTOR_NOTE.CREATE.express,
   validateBody(createDoctorNoteRequestDto),
+  authenticate,
   authorizeRoles('DOCTOR'),
   doctorNoteController.create,
 );
 
 doctorNoteRoute.patch(
   ROUTES.DOCTOR_NOTE.UPDATE.express,
+  authenticate,
   validateParams(idParamsSchema),
   validateBody(updateDoctorNoteRequestDto),
   authorizeRoles('DOCTOR'),
@@ -44,6 +46,7 @@ doctorNoteRoute.patch(
 
 doctorNoteRoute.delete(
   ROUTES.DOCTOR_NOTE.DELETE.express,
+  authenticate,
   validateParams(idParamsSchema),
   authorizeRoles('DOCTOR'),
   doctorNoteController.delete,
