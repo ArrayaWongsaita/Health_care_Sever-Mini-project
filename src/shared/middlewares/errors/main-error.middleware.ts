@@ -4,6 +4,7 @@ import { logger } from '../../logger/create.logger.js';
 import { SystemErrors } from '../../errors/system.errors.js';
 
 export const mainErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
+  console.log(err);
   let error: AppError = SystemErrors.internal();
 
   if (err instanceof AppError) {
@@ -18,5 +19,12 @@ export const mainErrorMiddleware: ErrorRequestHandler = (err, req, res, next) =>
     });
   }
 
-  res.status(error.statusCode).json(error);
+  res.status(error.statusCode).json({
+    status: 'error',
+    code: error.code,
+    message: error.message,
+    details: error.details,
+    isOperational: error.isOperational,
+    url: req.originalUrl,
+  });
 };

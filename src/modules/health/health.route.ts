@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { healthController } from './health.controller.js';
-import type { Handler } from '../../shared/types/express.type.js';
+import { ROUTES } from '../../shared/constants/routes.constant.js';
 
 const healthRoute = Router();
 
-healthRoute.get('/health', healthController.checkHealth);
+healthRoute.get(ROUTES.HEALTH.CHECK.express, healthController.checkHealth);
 
 export { healthRoute };

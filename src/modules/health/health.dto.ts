@@ -9,3 +9,5 @@ export const healthResponseDTO = z
     version: z.string().describe('Node.js version'),
   })
   .describe('CheckHealthResponseDTO');
+
+export type HealthResponseDTO = z.infer<typeof healthResponseDTO>;

@@ -4,6 +4,7 @@ export const BUSINESS_ERROR_CODES = {
   USER_NOT_FOUND: 'USER_NOT_FOUND',
   EMAIL_ALREADY_USED: 'EMAIL_ALREADY_USED',
   VALIDATION_FAILED: 'VALIDATION_FAILED',
+  NOT_FOUND: 'NOT_FOUND',
 };
 
 export const BusinessErrors = {
@@ -27,5 +28,12 @@ export const BusinessErrors = {
       message: 'Validation failed',
       statusCode: 400,
       details: issues,
+    }),
+
+  notFound: (message: string = 'Resource not found') =>
+    new AppError({
+      code: BUSINESS_ERROR_CODES.NOT_FOUND,
+      message,
+      statusCode: 404,
     }),
 };

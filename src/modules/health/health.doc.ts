@@ -2,6 +2,7 @@
 
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import { healthResponseDTO } from './health.dto.js';
+import { ROUTES } from '../../shared/constants/routes.constant.js';
 
 export const healthRegistry = new OpenAPIRegistry();
 
@@ -10,7 +11,7 @@ healthRegistry.register('healthResponse', healthResponseDTO);
 
 healthRegistry.registerPath({
   method: 'get',
-  path: '/health',
+  path: ROUTES.HEALTH.CHECK.doc,
   tags: ['Health'],
   responses: {
     200: {
