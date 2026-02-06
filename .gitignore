@@ -6,3 +6,4 @@ codebook.toml
 .env
 
 /src/generated/prisma
+/dist

@@ -12,20 +12,20 @@ import {
 import { authService, type AuthServiceInterface } from './auth.service.js';
 
 interface AuthControllerInterface {
-  login: Handler<undefined, LoginRequestDto>;
-  register: Handler<undefined, RegisterRequestDto>;
+  login: Handler<LoginRequestDto>;
+  register: Handler<RegisterRequestDto>;
   getMe: Handler<TokenPayload>;
 }
 
 class AuthController implements AuthControllerInterface {
   constructor(private readonly authService: AuthServiceInterface) {}
 
-  login: Handler<undefined, LoginRequestDto> = async (req, res) => {
+  login: Handler<LoginRequestDto> = async (req, res) => {
     const body = checkBody(res.locals.validateBody);
     const result = await this.authService.login(body);
     res.ok(result, loginResponseDto);
   };
-  register: Handler<undefined, RegisterRequestDto> = async (req, res) => {
+  register: Handler<RegisterRequestDto> = async (req, res) => {
     const body = checkBody(res.locals.validateBody);
     const result = await this.authService.register(body);
     res.created(result, registerResponseDto);
