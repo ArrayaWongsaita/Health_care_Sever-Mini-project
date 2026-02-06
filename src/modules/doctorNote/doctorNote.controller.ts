@@ -1,6 +1,6 @@
 import { checkBody, checkParams, checkQuery, checkUser } from '../../shared/libs/express.lib.js';
 import type { idParams } from '../../shared/schemas/params.schema.js';
-import type { TokenPayload } from '../../shared/services/token.service.js';
+
 import type { Handler } from '../../shared/types/express.type.js';
 import {
   createDoctorNoteResponseDto,
@@ -14,17 +14,17 @@ import {
 import { doctorNoteService, type DoctorNoteServiceInterface } from './doctorNote.service.js';
 
 interface DoctorNoteControllerInterface {
-  getAll: Handler<TokenPayload, unknown, unknown, PaginationQueryDto>;
-  getById: Handler<TokenPayload, unknown, idParams>;
-  create: Handler<TokenPayload, CreateDoctorNoteRequestDto>;
-  update: Handler<TokenPayload, UpdateDoctorNoteRequestDto, idParams>;
-  delete: Handler<TokenPayload, unknown, idParams>;
+  getAll: Handler<unknown, unknown, PaginationQueryDto>;
+  getById: Handler<unknown, idParams>;
+  create: Handler<CreateDoctorNoteRequestDto>;
+  update: Handler<UpdateDoctorNoteRequestDto, idParams>;
+  delete: Handler<unknown, idParams>;
 }
 
 class DoctorNoteController implements DoctorNoteControllerInterface {
   constructor(private readonly doctorNoteService: DoctorNoteServiceInterface) {}
 
-  getAll: Handler<TokenPayload, unknown, unknown, PaginationQueryDto> = async (req, res) => {
+  getAll: Handler<unknown, unknown, PaginationQueryDto> = async (req, res) => {
     const { userId, role } = checkUser(res.locals.user);
     const { page, limit } = checkQuery(res.locals.validateQuery);
 
@@ -32,7 +32,7 @@ class DoctorNoteController implements DoctorNoteControllerInterface {
     res.ok(result, doctorNotesListResponseDto);
   };
 
-  getById: Handler<TokenPayload, unknown, idParams> = async (req, res) => {
+  getById: Handler<unknown, idParams> = async (req, res) => {
     const { userId, role } = checkUser(res.locals.user);
     const { id } = checkParams(res.locals.validateParams);
 
@@ -40,14 +40,14 @@ class DoctorNoteController implements DoctorNoteControllerInterface {
     res.ok(result, doctorNoteResponseDto);
   };
 
-  create: Handler<TokenPayload, CreateDoctorNoteRequestDto> = async (req, res) => {
+  create: Handler<CreateDoctorNoteRequestDto> = async (req, res) => {
     const { userId: doctorId } = checkUser(res.locals.user);
     const validateBody = checkBody(res.locals.validateBody);
     const result = await this.doctorNoteService.create(doctorId, validateBody);
     res.created(result, createDoctorNoteResponseDto);
   };
 
-  update: Handler<TokenPayload, UpdateDoctorNoteRequestDto, idParams> = async (req, res) => {
+  update: Handler<UpdateDoctorNoteRequestDto, idParams> = async (req, res) => {
     const { userId: doctorId } = checkUser(res.locals.user);
     const { id } = checkParams(res.locals.validateParams);
     const validateBody = checkBody(res.locals.validateBody);
@@ -56,7 +56,7 @@ class DoctorNoteController implements DoctorNoteControllerInterface {
     res.ok(result, updateDoctorNoteResponseDto);
   };
 
-  delete: Handler<TokenPayload, unknown, idParams> = async (req, res) => {
+  delete: Handler<unknown, idParams> = async (req, res) => {
     const { userId: doctorId } = checkUser(res.locals.user);
     const { id } = checkParams(res.locals.validateParams);
 

@@ -15,7 +15,7 @@ export const authenticate: Handler = async (req, res, next) => {
     const payload = await tokenService.verifyToken(token);
 
     // Attach user info to request
-    req.user = payload;
+    res.locals.user = payload;
 
     next();
   } catch (error) {

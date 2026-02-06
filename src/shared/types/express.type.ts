@@ -1,14 +1,15 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import type { RequestHandler } from 'express';
+import type { TokenPayload } from '../services/token.service.js';
 
-export type Handler<U = unknown, B = unknown, P = unknown, Q = unknown> = RequestHandler<
+export type Handler<B = unknown, P = unknown, Q = unknown> = RequestHandler<
   P,
   unknown,
   B,
   Q,
   {
-    user?: U;
+    user?: TokenPayload;
     validateBody?: B;
     validateParams?: P;
     validateQuery?: Q;

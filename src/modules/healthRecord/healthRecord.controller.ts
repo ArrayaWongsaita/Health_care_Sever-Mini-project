@@ -1,6 +1,6 @@
 import { checkBody, checkParams, checkQuery, checkUser } from '../../shared/libs/express.lib.js';
 import type { idParams } from '../../shared/schemas/params.schema.js';
-import type { TokenPayload } from '../../shared/services/token.service.js';
+import type {} from '../../shared/services/token.service.js';
 import type { Handler } from '../../shared/types/express.type.js';
 import {
   createHealthRecordResponseDto,
@@ -14,17 +14,17 @@ import {
 import { healthRecordService, type HealthRecordServiceInterface } from './healthRecord.service.js';
 
 interface HealthRecordControllerInterface {
-  getAll: Handler<TokenPayload, undefined, undefined, PaginationQueryDto>;
-  getById: Handler<TokenPayload, undefined, idParams>;
-  create: Handler<TokenPayload, CreateHealthRecordRequestDto>;
-  update: Handler<TokenPayload, UpdateHealthRecordRequestDto, idParams>;
-  delete: Handler<TokenPayload, undefined, idParams>;
+  getAll: Handler<undefined, undefined, PaginationQueryDto>;
+  getById: Handler<undefined, idParams>;
+  create: Handler<CreateHealthRecordRequestDto>;
+  update: Handler<UpdateHealthRecordRequestDto, idParams>;
+  delete: Handler<undefined, idParams>;
 }
 
 class HealthRecordController implements HealthRecordControllerInterface {
   constructor(private readonly healthRecordService: HealthRecordServiceInterface) {}
 
-  getAll: Handler<TokenPayload, undefined, undefined, PaginationQueryDto> = async (_, res) => {
+  getAll: Handler<undefined, undefined, PaginationQueryDto> = async (_, res) => {
     // Arrange
     const { userId } = checkUser(res.locals.user);
     const { page, limit } = checkQuery(res.locals.validateQuery);
@@ -35,7 +35,7 @@ class HealthRecordController implements HealthRecordControllerInterface {
     res.ok(result, healthRecordsListResponseDto);
   };
 
-  getById: Handler<TokenPayload, undefined, idParams> = async (_, res) => {
+  getById: Handler<undefined, idParams> = async (_, res) => {
     // Arrange
     const { userId } = checkUser(res.locals.user);
     const { id } = checkParams(res.locals.validateParams);
@@ -45,7 +45,7 @@ class HealthRecordController implements HealthRecordControllerInterface {
     res.ok(result, healthRecordResponseDto);
   };
 
-  create: Handler<TokenPayload, CreateHealthRecordRequestDto> = async (req, res) => {
+  create: Handler<CreateHealthRecordRequestDto> = async (req, res) => {
     // Arrange
     const { userId } = checkUser(res.locals.user);
     const validateBody = checkBody(res.locals.validateBody);
@@ -55,7 +55,7 @@ class HealthRecordController implements HealthRecordControllerInterface {
     res.created(result, createHealthRecordResponseDto);
   };
 
-  update: Handler<TokenPayload, UpdateHealthRecordRequestDto, idParams> = async (req, res) => {
+  update: Handler<UpdateHealthRecordRequestDto, idParams> = async (req, res) => {
     // Arrange
     const { userId } = checkUser(res.locals.user);
     const { id } = checkParams(res.locals.validateParams);
@@ -67,7 +67,7 @@ class HealthRecordController implements HealthRecordControllerInterface {
     res.ok(result, updateHealthRecordResponseDto);
   };
 
-  delete: Handler<TokenPayload, undefined, idParams> = async (_, res) => {
+  delete: Handler<undefined, idParams> = async (_, res) => {
     // Arrange
     const { userId } = checkUser(res.locals.user);
     const { id: healthRecordId } = checkParams(res.locals.validateParams);
