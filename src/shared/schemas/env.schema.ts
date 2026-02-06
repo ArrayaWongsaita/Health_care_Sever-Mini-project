@@ -17,4 +17,10 @@ export const envSchema = z.object({
 
   // Database
   DATABASE_URL: z.url(),
+
+  JWT_SECRET: z
+    .string()
+    .min(32, 'JWT secret must be at least 32 characters long')
+    .default('your-secret-key'),
+  JWT_EXPIRES_IN: z.coerce.number().default(7 * 24 * 60 * 60), // 7 days in seconds
 });
